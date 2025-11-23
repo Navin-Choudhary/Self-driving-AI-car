@@ -8,10 +8,10 @@ const carCtx = carCanvas.getContext("2d");
 const networkCtx = networkCanvas.getContext("2d");
 const road = new Road(carCanvas.width/2,carCanvas.width*0.9);
 
-const N = 1;
+const N = 1000;
 const cars = generateCars(N);
 let bestCar = cars[0];
-if(localStorage.getItem("bestBrain")) {
+if(localStorage.getItem("bestBrain") && location.hostname === "localhost") {
     for(let i=0; i<cars.length; i++) {
         cars[i].brain = JSON.parse(
             localStorage.getItem("bestBrain"));
@@ -92,4 +92,5 @@ function animate(time) {
     networkCtx.lineDashOffset = -time/50;
     Visualizer.drawNetwork(networkCtx,bestCar.brain);
     requestAnimationFrame(animate);
+
 }
